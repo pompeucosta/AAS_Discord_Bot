@@ -8,9 +8,10 @@ It's not meant for real world scenarios as it is a simple model and script.
 To create a bot, the first step is to go to the [applications page in the discord developer portal](https://discord.com/developers/applications).
 Once there, click on the ``New Application`` button (or use an already created application).
 
-After the application is created, go to the ``Bot`` settings and click on the ``Reset Token`` button.
+After the application is created, go to the ``Bot`` settings.
+In that page, enable ``Message Content Intent`` just above the ``Bot Permissions`` section and click on the ``Reset Token`` button.
 This will create a token that will only be shown once.
-Copy the token generated and create a file ``.env`` in the ``src`` folder.
+Copy the token generated and create a file ``.env`` in the ``src`` folder (if it doesn`t already exist).
 Create a variable ``DISCORD_TOKEN`` and set the token as its value, for example:
 
 ```
