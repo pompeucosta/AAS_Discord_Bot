@@ -1,17 +1,18 @@
 import os
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
+from model import Model
 
 load_dotenv()
 
 TOKEN = os.getenv("DISCORD_TOKEN")
+TEXT_MODEL_PATH = os.getenv("TEXT_MODEL_PATH")
+URL_MODEL_PATH = os.getenv("URL_MODEL_PATH")
 
 intents = Intents.default()
 intents.message_content = True
 client = Client(intents=intents)
-
-def get_response(user_message: str):
-    return "response"
+model = Model(TEXT_MODEL_PATH,URL_MODEL_PATH)
 
 async def send_message(message: Message):
     user_message = message.content
@@ -20,8 +21,8 @@ async def send_message(message: Message):
         return
     
     try:
-        response = get_response(user_message)
-        await message.channel.send(response)
+        if model.predict(user_message):
+            await message.channel.send("Message is considered phishing!!")
     except Exception as e:
         print(e)
 
@@ -44,6 +45,10 @@ async def on_message(message: Message):
     await send_message(message)
 
 def main():
+    if TOKEN == None or TEXT_MODEL_PATH == None or URL_MODEL_PATH == None:
+        print("Token, text_model_path or url_model_path variable(s) are empty or undefined!")
+        exit(1)
+
     client.run(token=TOKEN)
 
 if __name__ == "__main__":
