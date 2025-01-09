@@ -1,10 +1,10 @@
 from discord import Client, Message
-from model import Model
+from modelHandler import ModelHandler
 
 class BotClient(Client):
-    def __init__(self,intents,model: Model):
+    def __init__(self,intents,modelHandler: ModelHandler):
         super().__init__(intents=intents)
-        self.model = model
+        self.modelHandler = modelHandler
 
     async def on_ready(self):
         print(f"{self.user} is running")
@@ -29,7 +29,7 @@ class BotClient(Client):
             return
         
         try:
-            if self.model.predict(user_message):
+            if self.modelHandler.predict(user_message):
                 await message.reply("This message is considered phishing!!",mention_author=True)
         except Exception as e:
             print(e)
