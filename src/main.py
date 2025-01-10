@@ -2,7 +2,7 @@ from os import getenv
 from dotenv import load_dotenv
 from discord import Intents
 from modelHandler import ModelHandler
-from model import MyTrainedModel
+from model import MyTrainedModel, PhisingURLModel
 from client import BotClient
 
 def main():
@@ -20,12 +20,11 @@ def main():
     text_model = MyTrainedModel(TEXT_MODEL_PATH)
 
     # model to predict urls
-    # text_model = MyCustomURLModel(URL_MODEL_PATH)
+    url_model = PhisingURLModel(URL_MODEL_PATH)
 
     intents = Intents.default()
     intents.message_content = True
-    # TODO: mudar None pelo modelo dos urls
-    model = ModelHandler(text_model,None)
+    model = ModelHandler(text_model,url_model)
     client = BotClient(intents,model)
 
     client.run(token=TOKEN)

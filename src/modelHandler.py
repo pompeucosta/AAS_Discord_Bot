@@ -18,7 +18,7 @@ class ModelHandler:
         if self.text_model != None:
             message_prediction = self.text_model.predict(message,urls)
 
-        return message_prediction and url_prediction
+        return message_prediction or url_prediction
     
     def _separate_urls_from_text(self,message: str):
         URL_PATTERN = r"https?://\S+"

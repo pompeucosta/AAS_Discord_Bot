@@ -27,3 +27,25 @@ class MyTrainedModel(Model):
             return model_and_pre_processor["model"],model_and_pre_processor["pre-processor"]
         
         raise Exception(f"Model not found at {path}")
+    
+class PhisingURLModel(Model):
+    def __init__(self,model_path: str):
+        super().__init__()
+        self._model = self._load_model(model_path)
+
+    def predict(self,message: str,urls: list[str]):
+        for url in urls:
+            features = preprocessing.extract_features(url)
+            # Model predicts 0 for phishing and 1 for non-phishing
+            if self._model.predict(features) == 0:
+                return True
+        return False
+    
+    def _load_model(self,path: str):
+        
+        model = joblib.load(path)
+
+        if model != None:
+            return model
+        
+        raise Exception(f"Model not found at {path}")
