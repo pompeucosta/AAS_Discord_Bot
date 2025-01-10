@@ -4,7 +4,7 @@ import preprocessing
 
 class Model(ABC):
     @abstractmethod
-    def predict(self,message: str):
+    def predict(self,message: str,urls: list[str]):
         pass
 
 # mudar nome para algo mais significativo, por ex, BoWMLPModel (BoW pa pre processor and MLP pa ML model)
@@ -14,7 +14,7 @@ class MyTrainedModel(Model):
         super().__init__()
         self._model,self._pre_processor = self._load_model(model_path)
 
-    def predict(self,message: str):
+    def predict(self,message: str,urls: list[str]):
         message_pre_processed = ' '.join(preprocessing.text_pre_processing(message))
         message_pre_processed = self._pre_processor.transform(message_pre_processed)
         
