@@ -46,5 +46,12 @@ The default behaviour of the bot requires some environmental variables to be set
 To run the bot, all that is needed is to install the requirements and run the main python script
 
 ```bash
-python3 src/main.py
+python src/main.py
+```
+
+The bot will be ready once it prints the following:
+```
+INFO     discord.client logging in using static token
+INFO     discord.gateway Shard ID None has connected to Gateway (Session ID: 5d9ec7294cf42393fca42476774bf992).
+<bot name>#<bot number> is running
 ```
