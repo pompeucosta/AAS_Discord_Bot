@@ -28,9 +28,7 @@ The default behaviour of the bot requires some environmental variables to be set
 |-------------------|-------------|
 | `TEXT_MODEL_PATH` | The path to the model that predicts text messages |
 | `URL_MODEL_PATH` | The path to the model that predicts URLs |
-| `TLD_ENCODER_PATH` | something |
-| `TOP_10M_DOMAINS_PATH` | something |
-| `KNOWN_PHISHING_DOMAINS_PATH` | something |
+| `TLD_ENCODER_PATH` | The path to the encoder that encodes the TLDs in feature extraction |
 
 > [!NOTE]
 > It's possible to use your own models.
