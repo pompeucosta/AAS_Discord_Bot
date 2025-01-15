@@ -22,6 +22,28 @@ Now, go to the ``OAuth2`` settings and in the ``OAuth2 URL Generator`` section e
 To add the bot to a server, copy the url generated and paste it in a new browser tab.
 Follow the prompts and the bot will be fully setup.
 
+## Before running the bot
+The default behaviour of the bot requires some environmental variables to be set:
+| Env variable | Description |
+|-------------------|-------------|
+| `TEXT_MODEL_PATH` | The path to the model that predicts text messages |
+| `URL_MODEL_PATH` | The path to the model that predicts URLs |
+| `TLD_ENCODER_PATH` | something |
+| `TOP_10M_DOMAINS_PATH` | something |
+| `KNOWN_PHISHING_DOMAINS_PATH` | something |
+
+> [!NOTE]
+> It's possible to use your own models.
+> For that simply create a class to represent your model and implement the `predict` method:
+> ```python
+> class MyModel(Model):
+>     def predict(self,message: str,urls: list[str]):
+>         # your model predict behaviour
+> ```
+> The main script will automatically load the environmental variables, so you can just retrieve them on your class.
+> Then, in main, just create an instance of your model class and pass it to the `ModelHandler`.
+
+
 ## Running the bot
 To run the bot, all that is needed is to install the requirements and run the main python script
 
