@@ -2,14 +2,14 @@ from abc import ABC,abstractmethod
 import joblib
 import preprocessing
 from os import getenv
+import numpy as np
 
 class Model(ABC):
     @abstractmethod
     def predict(self,message: str,urls: list[str]):
         pass
 
-# mudar nome para algo mais significativo, por ex, BoWMLPModel (BoW pa pre processor and MLP pa ML model)
-class MyTrainedModel(Model):
+class FastTextMLP(Model):
     def __init__(self):
         super().__init__()
         model_path = getenv("TEXT_MODEL_PATH")
@@ -20,9 +20,29 @@ class MyTrainedModel(Model):
 
     def predict(self,message: str,urls: list[str]):
         message_pre_processed = ' '.join(preprocessing.text_pre_processing(message))
-        message_pre_processed = self._pre_processor.transform([message_pre_processed])
+        message_pre_processed = self._word_vector_to_sentence_vector(message_pre_processed,self._pre_processor.wv)
         
         return self._model.predict(message_pre_processed)
+    
+    def _div_norm(self,x):
+        norm_value = np.linalg.norm(x)
+        if norm_value > 0:
+            return x * ( 1.0 / norm_value)
+        else:
+            return x
+
+    def _word_vector_to_sentence_vector(self,sentence:list, model):
+        vectors = []
+        # for all the tokens in the setence
+        for token in sentence:
+            if token in model:
+                vectors.append(model[token])
+        # add the EOS token
+        if '\n' in model:
+            vectors.append(model['\n'])
+        # normalize all the vectors
+        vectors = [self._div_norm(x) for x in vectors]
+        return np.mean(vectors, axis=0)
     
     def _load_model(self,path: str):
         model_and_pre_processor = joblib.load(path)

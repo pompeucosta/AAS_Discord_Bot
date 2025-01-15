@@ -2,7 +2,7 @@ from os import getenv
 from dotenv import load_dotenv
 from discord import Intents
 from modelHandler import ModelHandler
-from model import MyTrainedModel, PhisingURLModel
+from model import FastTextMLP, PhisingURLModel
 from client import BotClient
 
 def main():
@@ -14,7 +14,7 @@ def main():
         exit(1)
 
     # model to predict text messages
-    text_model = MyTrainedModel()
+    text_model = FastTextMLP()
 
     # model to predict urls
     url_model = PhisingURLModel()
