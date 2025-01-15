@@ -20,7 +20,7 @@ class MyTrainedModel(Model):
 
     def predict(self,message: str,urls: list[str]):
         message_pre_processed = ' '.join(preprocessing.text_pre_processing(message))
-        message_pre_processed = self._pre_processor.transform(message_pre_processed)
+        message_pre_processed = self._pre_processor.transform([message_pre_processed])
         
         return self._model.predict(message_pre_processed)
     
