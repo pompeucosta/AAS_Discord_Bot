@@ -1,6 +1,7 @@
 from abc import ABC,abstractmethod
 import joblib
 import preprocessing
+from os import getenv
 
 class Model(ABC):
     @abstractmethod
@@ -9,9 +10,12 @@ class Model(ABC):
 
 # mudar nome para algo mais significativo, por ex, BoWMLPModel (BoW pa pre processor and MLP pa ML model)
 class MyTrainedModel(Model):
-    def __init__(self,model_path: str):
-        """An example of a model that uses BoW for pre-processing and MLP to predict the class"""
+    def __init__(self):
         super().__init__()
+        model_path = getenv("TEXT_MODEL_PATH")
+        if model_path == None:
+            raise Exception("Text model path not set")
+
         self._model,self._pre_processor = self._load_model(model_path)
 
     def predict(self,message: str,urls: list[str]):
@@ -29,8 +33,12 @@ class MyTrainedModel(Model):
         raise Exception(f"Model not found at {path}")
     
 class PhisingURLModel(Model):
-    def __init__(self,model_path: str):
+    def __init__(self):
         super().__init__()
+        model_path = getenv("URL_MODEL_PATH")
+        if model_path == None:
+            raise Exception("URL model path not set")
+    
         self._model = self._load_model(model_path)
 
     def predict(self,message: str,urls: list[str]):

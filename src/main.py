@@ -7,20 +7,17 @@ from client import BotClient
 
 def main():
     load_dotenv()
-
     TOKEN = getenv("DISCORD_TOKEN")
-    TEXT_MODEL_PATH = getenv("TEXT_MODEL_PATH")
-    URL_MODEL_PATH = getenv("URL_MODEL_PATH")
     
-    if TOKEN == None or TEXT_MODEL_PATH == None or URL_MODEL_PATH == None:
-        print("Token, text_model_path or url_model_path variable(s) are empty or undefined!")
+    if TOKEN == None:
+        print("Token undefined!")
         exit(1)
 
     # model to predict text messages
-    text_model = MyTrainedModel(TEXT_MODEL_PATH)
+    text_model = MyTrainedModel()
 
     # model to predict urls
-    url_model = PhisingURLModel(URL_MODEL_PATH)
+    url_model = PhisingURLModel()
 
     intents = Intents.default()
     intents.message_content = True
