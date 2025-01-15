@@ -14,9 +14,9 @@ nltk.download('omw-1.4')
 nltk.download('averaged_perceptron_tagger_eng')
 nltk.download('stopwords')
 
-TOP_10M_DOMAINS_PATH = getenv('TOP_10M_DOMAINS_PATH')
+TOP_10M_DOMAINS_PATH = './data/top10milliondomains-reduced.csv'
+KNOWN_PHISHING_DOMAINS_PATH = './data/ALL-phishing-domains.lst'
 TLD_ENCODER_PATH = getenv('TLD_ENCODER_PATH')
-KNOWN_PHISHING_DOMAINS_PATH = getenv('KNOWN_PHISHING_DOMAINS_PATH')
 
 def _nltk_pos_tagger(nltk_tag):
     if nltk_tag.startswith('J'):
