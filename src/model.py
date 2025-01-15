@@ -19,10 +19,12 @@ class FastTextMLP(Model):
         self._model,self._pre_processor = self._load_model(model_path)
 
     def predict(self,message: str,urls: list[str]):
-        message_pre_processed = ' '.join(preprocessing.text_pre_processing(message))
+        message_pre_processed = preprocessing.text_pre_processing(message)
         message_pre_processed = self._word_vector_to_sentence_vector(message_pre_processed,self._pre_processor.wv)
         
-        return self._model.predict(message_pre_processed)
+        x = self._model.predict([message_pre_processed])
+        print(x)
+        return x
     
     def _div_norm(self,x):
         norm_value = np.linalg.norm(x)
