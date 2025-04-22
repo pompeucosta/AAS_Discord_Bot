@@ -1,7 +1,7 @@
-# Discord bot
+# Phishing detection discord bot
 Discord bot developed to warn server users if a message is considered a phishing message.
 
-This bot was developed with the scope of the AAS project, with the main goal being the development of a machine learning model capable of identifying phishing messages.
+This bot was developed within the scope of a university project, with the main goal being the development of a machine learning model capable of identifying phishing messages.
 It's not meant for real world scenarios as it is a simple model and script.
 
 ## Creating the bot
